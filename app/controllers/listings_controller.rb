@@ -62,7 +62,10 @@ class ListingsController < ApplicationController
   end
 
   def place_order
-    if current_user.id == @listing.user_id
+  if !current_user
+    flash[:alert] = "Please login to continue"
+    redirect_to new_user_path
+  elsif current_user.id == @listing.user_id
       flash[:alert] = "You can't buy your own item!"
       redirect_to listings_path
 
@@ -75,7 +78,7 @@ class ListingsController < ApplicationController
 
     @listing.update(sold: true)
 
-    redirect_to order_success_path
+    redirect_to orders_success_path
   end
 end
 

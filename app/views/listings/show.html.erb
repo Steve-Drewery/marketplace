@@ -46,8 +46,10 @@
 <p>
 <% if current_user && !@listing.sold  %>
 <%= button_to "Buy me!", place_order_path, class: "button" %>
+<% elsif !current_user && !@listing.sold %>
+<%= button_to "Buy me!", place_order_path, class: "button" %>
 <% else %>
-<h3>"Sold"</h3>
+<h3>Sold!</h3>
 <% end %>
 </p>
 
